@@ -30,4 +30,6 @@ RUN brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
 RUN brsaneconfig4 -q | grep brother
 
 #### Copy files #####
-#RUN cp /scripts/
+RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
+RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
+

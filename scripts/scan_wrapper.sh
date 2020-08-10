@@ -39,7 +39,7 @@ function nc_upload {
 ### Check for input value
 if [ -z "$1" ]
 	then
-		echo "missing unput arguments!"
+		echo "missing input arguments!"
 	exit
 fi
 
