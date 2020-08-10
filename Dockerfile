@@ -3,6 +3,10 @@ FROM fedora:latest
 ### Vars
 # IP and name
 
+# Expose Ports
+
+
+
 ##### update to latest and install packages ##### 
 RUN dnf -y update && dnf -y install wget git unzip dpkg iputils procps && dnf clean all
 
@@ -11,7 +15,7 @@ RUN dnf -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpa
 
 ##### setup scanner crap
 ## Add this code to my repo for management ##
-RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /scanner/
+RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /.
 
 #### Add drivers folder and install #######
 ADD drivers/* /drivers/
@@ -25,6 +29,5 @@ RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
 RUN brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
 RUN brsaneconfig4 -q | grep brother
 
-# Expose ports
-
-#port ?
+#### Copy files #####
+#RUN cp /scripts/

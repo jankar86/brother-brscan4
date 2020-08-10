@@ -1,8 +1,8 @@
 #/bin/bash
 
 
-SCRIPT="bash /home/jankar/sane-scan-pdf/scan"
-OUTPUTDIR="/home/jankar/scans"
+SCRIPT="bash /sane-scan-pdf/scan"
+OUTPUTDIR="/scans"
 DEVICE="brother4:net1\;dev0"
 OUTPUT=$OUTPUTDIR/scan_"`date +%Y-%m-%d-%H-%M`"".pdf"
 
