@@ -22,10 +22,8 @@ ADD scripts/* /scripts/
 RUN dpkg -i --force-all brscan4*.deb
 RUN dpkg -i --force-all brscan-skey-*.deb
 
-brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
-brsaneconfig4 -q | grep brother
-
-dpkg -i  --force-all  (scan-key-tool filename)
+RUN brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
+RUN brsaneconfig4 -q | grep brother
 
 # Expose ports
 
