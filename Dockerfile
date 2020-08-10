@@ -12,10 +12,11 @@ EXPOSE 54921
 
 ##### update to latest, install packages, cleanup ##### 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install wget git unzip dpkg iputils procps
+RUN apt-get -y install wget git unzip dpkg procps
 
 #### Install scanner dependancies
-RUN apt-get -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract sane-frontends.x86_64
+#RUN apt-get -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract sane-frontends.x86_64
+RUN apt-get -y install units
 RUN apt-get -y clean
 
 
@@ -28,17 +29,17 @@ ADD drivers/* /drivers/
 ADD scripts/* /scripts/
 
 ### Install and configure
-RUN dpkg -i --force-all /drivers/brscan4*.deb
-RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
+#RUN dpkg -i --force-all /drivers/brscan4*.deb
+#RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
 
-RUN brsaneconfig4 -a name=$NAME model=$MODEL ip=$IPADDRESS
-RUN brsaneconfig4 -q | grep $NAME
+#RUN brsaneconfig4 -a name=$NAME model=$MODEL ip=$IPADDRESS
+#RUN brsaneconfig4 -q | grep $NAME
 
 #### Copy files #####
-RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
-RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
-RUN rm /sane-scan-pdf/scan
-RUN cp /scripts/scan /sane-scan-pdf/
+#RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
+#RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
+#RUN rm /sane-scan-pdf/scan
+#RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
 #RUN bash "/usr/bin/brscan-skey"
