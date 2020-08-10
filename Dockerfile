@@ -33,3 +33,7 @@ RUN brsaneconfig4 -q | grep brother
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
 
+
+
+#### Start the scanner listener ####
+RUN brscan-skey
