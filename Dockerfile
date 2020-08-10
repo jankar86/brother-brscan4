@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM ubuntu:18.04
 
 ### Vars
 ENV NAME="Scanner"
@@ -10,14 +10,14 @@ ENV USERNAME="scan"
 EXPOSE 54925
 EXPOSE 54921
 
-adduser $USERNAME --disabled-password --force-badname --gecos ""
-
-
-##### update to latest and install packages ##### 
-RUN dnf -y update && dnf -y install wget git unzip dpkg iputils procps && dnf clean all
+##### update to latest, install packages, cleanup ##### 
+RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y install wget git unzip dpkg iputils procps
 
 #### Install scanner dependancies
-RUN dnf -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract sane-frontends.x86_64 && dnf clean all
+RUN apt-get -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract sane-frontends.x86_64
+RUN apt-get -y clean
+
 
 ##### setup scanner crap
 ## Add this code to my repo for management ##
@@ -41,4 +41,4 @@ RUN rm /sane-scan-pdf/scan
 RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
-RUN bash "/usr/bin/brscan-skey"
+#RUN bash "/usr/bin/brscan-skey"
