@@ -4,7 +4,7 @@ FROM fedora:latest
 RUN dnf -y update && dnf -y install wget git unzip && dnf clean all
 
 #### Install scanner dependancies
-RUN dnf -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract gnu-parallels && dnf clean all
+RUN dnf -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpaper util-linux tesseract sane-frontends.x86_64 && dnf clean all
 
 
 RUN touch /testing.html
