@@ -15,7 +15,7 @@ RUN dnf -y install units netpbm-progs ghostscript poppler-utils ImageMagick unpa
 
 ##### setup scanner crap
 ## Add this code to my repo for management ##
-RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /.
+RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /sane-scan-pdf/
 
 #### Add drivers folder and install #######
 ADD drivers/* /drivers/
