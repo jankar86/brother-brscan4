@@ -15,7 +15,7 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install wget git unzip dpkg procps iputils-ping
 
 #### Install scanner dependancies
-RUN apt-get -y install units sane netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel
+RUN apt-get -y install units sane netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
 RUN apt-get -y clean
 
 
