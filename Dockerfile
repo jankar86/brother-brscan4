@@ -19,8 +19,8 @@ ADD scripts/* /scripts/
 
 
 ### Install and configure
-RUN dpkg -i --force-all brscan4*.deb
-RUN dpkg -i --force-all brscan-skey-*.deb
+RUN dpkg -i --force-all /drivers/brscan4*.deb
+RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
 
 RUN brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
 RUN brsaneconfig4 -q | grep brother
