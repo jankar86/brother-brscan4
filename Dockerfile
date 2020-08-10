@@ -1,9 +1,17 @@
 FROM fedora:latest
 
 ### Vars
-# IP and name
+ENV NAME="Scanner"
+ENV MODEL="MFC-L2700DW"
+ENV IPADDRESS="192.168.1.207"
+ENV USERNAME="scan"
 
 # Expose Ports
+EXPOSE 54925
+EXPOSE 54921
+
+adduser $USERNAME --disabled-password --force-badname --gecos ""
+
 
 ##### update to latest and install packages ##### 
 RUN dnf -y update && dnf -y install wget git unzip dpkg iputils procps && dnf clean all
@@ -23,8 +31,8 @@ ADD scripts/* /scripts/
 RUN dpkg -i --force-all /drivers/brscan4*.deb
 RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
 
-RUN brsaneconfig4 -a name=brother model=MFC-L2700DW ip=192.168.1.207
-RUN brsaneconfig4 -q | grep brother
+RUN brsaneconfig4 -a name=$NAME model=$MODEL ip=$IPADDRESS
+RUN brsaneconfig4 -q | grep $NAME
 
 #### Copy files #####
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
@@ -33,4 +41,4 @@ RUN rm /sane-scan-pdf/scan
 RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
-RUN nohup bash -c "brscan-skey &" && sleep 4
+RUN bash "/usr/bin/brscan-skey"
