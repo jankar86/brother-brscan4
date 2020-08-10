@@ -5,8 +5,6 @@ FROM fedora:latest
 
 # Expose Ports
 
-
-
 ##### update to latest and install packages ##### 
 RUN dnf -y update && dnf -y install wget git unzip dpkg iputils procps && dnf clean all
 
@@ -21,7 +19,6 @@ RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /sane-scan-pdf/
 ADD drivers/* /drivers/
 ADD scripts/* /scripts/
 
-
 ### Install and configure
 RUN dpkg -i --force-all /drivers/brscan4*.deb
 RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
@@ -32,8 +29,8 @@ RUN brsaneconfig4 -q | grep brother
 #### Copy files #####
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
-
-
+RUN rm /sane-scan-pdf/scan
+RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
-RUN brscan-skey
+RUN nohup bash -c "brscan-skey &" && sleep 4
