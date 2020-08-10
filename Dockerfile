@@ -1,6 +1,6 @@
 FROM fedora:latest
 
-###### update to latest and install packages ##### 
+##### update to latest and install packages ##### 
 RUN dnf -y update && dnf -y install wget git unzip && dnf clean all
 
 #### Install scanner dependancies
