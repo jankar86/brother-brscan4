@@ -42,3 +42,4 @@ RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
 #RUN bash "/usr/bin/brscan-skey"
+CMD "brscan-skey"
