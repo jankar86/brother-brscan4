@@ -1,0 +1,2 @@
+
+@reboot /bin/bash /usr/bin/brscan-skey
