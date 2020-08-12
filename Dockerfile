@@ -39,7 +39,6 @@ RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
 RUN rm /sane-scan-pdf/scan
 RUN cp /scripts/scan /sane-scan-pdf/
-RUN crontab /scripts/crontab
 
 #### Start the scanner listener ####
  
