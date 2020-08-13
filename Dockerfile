@@ -1,10 +1,10 @@
 FROM ubuntu:18.04
 
 ### Vars
-ENV NAME="Scanner"
+ENV NAME="brother"
 ENV MODEL="MFC-L2700DW"
 ENV IPADDRESS="192.168.1.207"
-ENV USERNAME="scan"
+ENV USERNAME="dock"
 
 # Expose Ports
 EXPOSE 54925
@@ -12,10 +12,10 @@ EXPOSE 54921
 
 ##### update to latest, install packages, cleanup ##### 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install wget git unzip dpkg procps iputils-ping
+RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano
 
 #### Install scanner dependancies
-RUN apt-get -y install units sane netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
+RUN apt-get -y install units sane sane-utils netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
 RUN apt-get -y clean
 
 
@@ -41,4 +41,4 @@ RUN rm /sane-scan-pdf/scan
 RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
- 
+CMD /scripts/start.sh

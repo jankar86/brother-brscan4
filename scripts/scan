@@ -241,7 +241,8 @@ fi;
 echo >&2 "Scanning..."
 #eval strace -f -o /tmp/scan-trace.txt scanadf -d $DEVICE $MAXPAGE $PGHEIGHT $PGWIDTH -S $SCRIPT --script-wait --resolution $RESOLUTION --mode $MODE $DESKEW $CROP $SOURCE -o scan-%04d
 #eval scanadf -d "$DEVICE" $MAXPAGE $PGHEIGHT $PGWIDTH -S $SCRIPT --script-wait --resolution $RESOLUTION --mode $MODE $DESKEW $CROP $DRIVER_OPTION $SOURCE -o $TMP_DIR/scan-%04d
-eval scanadf -d "$DEVICE" $MAXPAGE -S $SCRIPT --script-wait --resolution $RESOLUTION $DESKEW $CROP $DRIVER_OPTION $SOURCE -o $TMP_DIR/scan-%04d
+#eval scanadf -d "$DEVICE" $MAXPAGE -S $SCRIPT --script-wait --resolution $RESOLUTION $DESKEW $CROP $DRIVER_OPTION $SOURCE -o $TMP_DIR/scan-%04d
+eval scanadf $MAXPAGE -S $SCRIPT --script-wait --resolution $RESOLUTION $DESKEW $CROP $DRIVER_OPTION $SOURCE -o $TMP_DIR/scan-%04d
 
 shopt -s extglob nullglob
 pdffiles=($TMP_DIR/scan-[0-9]*.pdf)
