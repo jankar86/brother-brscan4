@@ -11,7 +11,9 @@ ENV TZ="America/Chicago"
 EXPOSE 54925
 EXPOSE 54921
 
+
 ##### update to latest, install packages, cleanup ##### 
+RUN echo $TZ > /etc/timezone
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano tzdata
 
