@@ -6,11 +6,12 @@ ENV MODEL="MFC-L2700DW"
 ENV IPADDRESS="192.168.1.207"
 ENV USERNAME="dock"
 ENV TZ="America/Chicago"
+ENV DEBIAN_FRONTEND=noninteractive
+
 
 # Expose Ports
 EXPOSE 54925
 EXPOSE 54921
-
 
 ##### update to latest, install packages, cleanup ##### 
 RUN echo $TZ > /etc/timezone
@@ -20,7 +21,6 @@ RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano tzdata
 #### Install scanner dependancies
 RUN apt-get -y install units sane sane-utils netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
 RUN apt-get -y clean
-
 
 ##### setup scanner crap
 ## Add this code to my repo for management ##
