@@ -14,6 +14,7 @@ EXPOSE 54925
 EXPOSE 54921
 
 ##### update to latest, install packages, cleanup ##### 
+#RUN apt-get -y install apt-utils
 RUN echo $TZ > /etc/timezone
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano tzdata curl
@@ -40,8 +41,8 @@ RUN brsaneconfig4 -q | grep $NAME
 #### Copy files #####
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
-RUN rm /sane-scan-pdf/scan
-RUN cp /scripts/scan /sane-scan-pdf/
+#RUN rm /sane-scan-pdf/scan
+#RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
 CMD /scripts/start.sh

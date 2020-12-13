@@ -1,7 +1,10 @@
 set -ex
 # SET THE FOLLOWING VARIABLES
 # docker hub username
+
 USERNAME=jankar
+
+
 # image name
 IMAGE=brscan-skey_test
 # ensure we're up to date
