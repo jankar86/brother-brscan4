@@ -9,9 +9,10 @@ ENV USERNAME="dock"
 ENV TZ="America/Chicago"
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV NC_USER=""
-ENV NC_PASS=""
-ENV NC_URL=""
+###### Variables for NextCloud integrations ######
+export NC_USER=""
+export NC_PASS=""
+export NC_URL=""
 
 # Expose Ports
 EXPOSE 54925
