@@ -6,7 +6,7 @@ USERNAME=jankar
 
 
 # image name
-IMAGE=brscan-skey_test
+IMAGE=brscan-skey
 # ensure we're up to date
 git pull
 # bump version

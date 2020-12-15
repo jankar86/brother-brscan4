@@ -27,7 +27,10 @@ RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano tzdata curl
 RUN apt-get -y install units sane sane-utils netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
 RUN apt-get -y clean
 
-##### setup scanner crap
+#### Persistant Volumes #######
+VOLUME /scans
+
+##### setup scanner crap ######
 ## Add this code to my repo for management ##
 RUN git clone https://github.com/rocketraman/sane-scan-pdf.git /sane-scan-pdf/
 
@@ -47,6 +50,7 @@ RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
 RUN rm /sane-scan-pdf/scan
 RUN cp /scripts/scan /sane-scan-pdf/
+
 
 #### Start the scanner listener ####
 CMD /scripts/start.sh
