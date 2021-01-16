@@ -4,7 +4,7 @@ FROM ubuntu:18.04
 ### Vars
 ENV NAME="brother"
 ENV MODEL="MFC-L2700DW"
-ENV IPADDRESS="192.168.1.207"
+ENV IPADDRESS="192.168.1.20"
 ENV USERNAME="dock"
 ENV TZ="America/Chicago"
 ENV DEBIAN_FRONTEND=noninteractive
