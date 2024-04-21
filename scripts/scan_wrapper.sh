@@ -5,6 +5,7 @@ SCRIPT="bash /sane-scan-pdf/scan"
 OUTPUTDIR="/scans"
 DEVICE="brother4:net1\;dev0"
 OUTPUT=$OUTPUTDIR/scan_"`date +%Y-%m-%d-%H-%M`"".pdf"
+YEAR=$(date +"%Y")
 
 echo "Starting scanning with the following options "
 echo "Device:  " $DEVICE
@@ -26,7 +27,7 @@ function scan {
 function nc_upload {
 
    echo "someday upload to NC"
-   RESPONSE=$(curl -u $NC_USER:$NC_PASS -T $OUTPUT $NC_URL)
+   RESPONSE=$(curl -u $NC_USER:$NC_PASS -T $OUTPUT $NC_URL/$YEAR/)
 
 	echo $RESPONSE
 
