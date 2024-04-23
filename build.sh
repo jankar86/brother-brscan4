@@ -4,7 +4,7 @@ set -ex
 # docker hub username
 USERNAME=jankar
 
-VERSION="$(cat VERSION)"
+VERSION=$1
 
 # image name
 IMAGE=brother-brscan4

@@ -1,4 +1,4 @@
-#docker image prune -a -f
+docker image prune -a -f
 
 VERSION="$(cat VERSION)"
 
