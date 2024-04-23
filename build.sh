@@ -7,5 +7,5 @@ USERNAME=jankar
 VERSION=$1
 
 # image name
-IMAGE=brother-brscan4
+IMAGE=brscan-skey
 docker build -t $USERNAME/$IMAGE:latest --build-arg VERSION=$VERSION .
