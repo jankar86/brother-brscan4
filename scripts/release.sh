@@ -1,7 +1,7 @@
 set -ex
 # SET THE FOLLOWING VARIABLES
 # docker hub username
-USERNAME=janakr
+USERNAME=jankar
 # image name
 IMAGE=brother-brscan4
 # ensure we're up to date
@@ -11,7 +11,7 @@ docker run --rm -v "$PWD":/app treeder/bump patch
 version=`cat VERSION`
 echo "version: $version"
 # run build
-./build.sh
+./build.sh $version
 # tag it
 
 git add -A
