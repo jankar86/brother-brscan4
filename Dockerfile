@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
+FROM ubuntu:24.04
 
 
 ### Vars
@@ -20,12 +21,35 @@ EXPOSE 54921
 ##### update to latest, install packages, cleanup ##### 
 #RUN apt-get -y install apt-utils
 RUN echo $TZ > /etc/timezone
-RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install wget git unzip dpkg procps iputils-ping nano tzdata curl
+
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean
+RUN apt-get -y install \
+                wget \
+                git \
+                unzip \
+                dpkg \
+                procps \
+                iputils-ping \
+                nano \
+                tzdata \
+                curl \
+                && apt-get -y clean
 
 #### Install scanner dependancies
-RUN apt-get -y install units sane sane-utils netpbm ghostscript poppler-utils imagemagick unpaper util-linux tesseract-ocr parallel bc
-RUN apt-get -y clean
+RUN apt-get -y install \
+                units \
+                sane \
+                sane-utils \
+                netpbm \
+                ghostscript \
+                poppler-utils \
+                imagemagick \
+                unpaper \
+                util-linux \
+                tesseract-ocr \
+                parallel \
+                bc \
+                && apt-get -y clean
 
 #### Persistant Volumes #######
 VOLUME /scans
