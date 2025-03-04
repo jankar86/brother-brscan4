@@ -10,10 +10,6 @@ ENV USERNAME="dock"
 ENV TZ="America/Chicago"
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV NC_USER=""
-ENV NC_PASS=""
-ENV NC_URL=""
-
 # Expose Ports
 EXPOSE 54925
 EXPOSE 54921
