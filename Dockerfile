@@ -1,6 +1,9 @@
-#FROM ubuntu:18.04
 FROM ubuntu:24.04
+#FROM python:slim-bullseye
 
+#### Build Args
+ARG BUILD_VERSION="unknown"
+ENV BUILD_VERSION=$BUILD_VERSION
 
 ### Vars
 ENV NAME="brother"
@@ -10,12 +13,10 @@ ENV USERNAME="dock"
 ENV TZ="America/Chicago"
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Expose Ports
-EXPOSE 54925
-EXPOSE 54921
+# Expose Ports ### Need to get this working to remove host networking
+EXPOSE 54925/udp 54921 161/udp
 
 ##### update to latest, install packages, cleanup ##### 
-#RUN apt-get -y install apt-utils
 RUN echo $TZ > /etc/timezone
 
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean
@@ -45,7 +46,10 @@ RUN apt-get -y install \
                 tesseract-ocr \
                 parallel \
                 bc \
-                && apt-get -y clean
+                && apt-get -y clean \
+                ## Fix Seg Fault core dump error when scanning
+                && sed -i 's/^genesys/#genesys/' /etc/sane.d/dll.conf
+
 
 #### Persistant Volumes #######
 VOLUME /scans
@@ -73,4 +77,5 @@ RUN cp /scripts/scan /sane-scan-pdf/
 
 
 #### Start the scanner listener ####
-CMD /scripts/start.sh
+CMD ["bash", "/scripts/start.sh"]
+

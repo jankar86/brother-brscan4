@@ -1,11 +1,10 @@
 #!/bin/bash
-
+YEAR=$(date +"%Y")
 
 SCRIPT="bash /sane-scan-pdf/scan"
-OUTPUTDIR="/scans"
+OUTPUTDIR="/scans/$YEAR"
 DEVICE="brother4:net1\;dev0"
-OUTPUT=$OUTPUTDIR/scan_"`date +%Y-%m-%d-%H-%M`"".pdf"
-YEAR=$(date +"%Y")
+OUTPUT=$OUTPUTDIR/"`date +%Y-%m-%d-%H-%M`""_$1.pdf"
 LOGFILE="/scan_wrapper.log"
 
 echo "Starting scanning with the following options " | tee -a $LOGFILE
@@ -38,18 +37,16 @@ if [ -z "$1" ]
 	exit
 fi
 
+# Ensure the output directory exists (only creates if missing)
+[ ! -d "$(dirname "$OUTPUT")" ] && mkdir -p "$(dirname "$OUTPUT")"
+
+
+## Call the scan script
 scan $1
 
 # Ensure the file was created
 if [ ! -f "$OUTPUT" ]; then
    echo "Error: Scan failed, file not found!" | tee -a $LOGFILE
-   exit 1
-fi
-
-
-# Ensure Unraid share is mounted
-if ! mount | grep -q "$OUTPUTDIR"; then
-   echo "Error: Unraid share is not mounted!" | tee -a $LOGFILE
    exit 1
 fi
 
