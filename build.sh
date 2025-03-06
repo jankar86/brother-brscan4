@@ -8,4 +8,4 @@ VERSION=$1
 
 # image name
 IMAGE=brscan-skey
-docker build -t $USERNAME/$IMAGE:latest --build-arg VERSION=$VERSION .
+docker build -t $USERNAME/$IMAGE:latest --build-arg BUILD_VERSION=$VERSION .
