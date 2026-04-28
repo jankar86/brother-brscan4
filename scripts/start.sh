@@ -5,11 +5,35 @@ echo "Starting brscan-skey......."
 echo "Container Version: ${BUILD_VERSION:-unknown}"
 echo "=============================="
 
+for required_var in NAME MODEL IPADDRESS; do
+    if [ -z "${!required_var}" ]; then
+        echo "Missing required environment variable: $required_var"
+        exit 1
+    fi
+done
+
+echo "Configuring scanner with runtime environment variables:"
+echo "NAME=$NAME"
+echo "MODEL=$MODEL"
+echo "IPADDRESS=$IPADDRESS"
+
 # Wait for network stability
 sleep 5
 
-# Ensure scanner configuration (uncomment if needed)
-# /usr/bin/brsaneconfig4 -a name="$SCANNER_NAME" model="$SCANNER_MODEL" ip="$SCANNER_IP_ADDRESS"
+existing_names=$(/usr/bin/brsaneconfig4 -q | awk '$1 ~ /^[0-9]+$/ { print $2 }')
+if [ -n "$existing_names" ]; then
+    while IFS= read -r existing_name; do
+        [ -n "$existing_name" ] || continue
+        /usr/bin/brsaneconfig4 -r "$existing_name"
+    done <<EOF
+$existing_names
+EOF
+fi
+
+/usr/bin/brsaneconfig4 -a name="$NAME" model="$MODEL" ip="$IPADDRESS"
+
+echo "Effective brsaneconfig4 configuration:"
+/usr/bin/brsaneconfig4 -q
 
 # Start brscan-skey in the background
 /usr/bin/brscan-skey &

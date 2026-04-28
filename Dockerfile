@@ -66,9 +66,6 @@ ADD scripts/* /scripts/
 RUN dpkg -i --force-all /drivers/brscan4*.deb
 RUN dpkg -i --force-all /drivers/brscan-skey-*.deb
 
-RUN brsaneconfig4 -a name=$NAME model=$MODEL ip=$IPADDRESS
-RUN brsaneconfig4 -q | grep $NAME
-
 #### Copy files #####
 RUN rm /opt/brother/scanner/brscan-skey/brscan-skey.config
 RUN cp /scripts/brscan-skey.config /opt/brother/scanner/brscan-skey/
@@ -78,4 +75,3 @@ RUN cp /scripts/scan /sane-scan-pdf/
 
 #### Start the scanner listener ####
 CMD ["bash", "/scripts/start.sh"]
-
