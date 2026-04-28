@@ -5,6 +5,9 @@ echo "Starting brscan-skey......."
 echo "Container Version: ${BUILD_VERSION:-unknown}"
 echo "=============================="
 
+BRSCAN_CMD="/opt/brother/scanner/brscan-skey/brscan-skey-exe"
+BRSCAN_PROC="brscan-skey-exe"
+
 for required_var in NAME MODEL IPADDRESS; do
     if [ -z "${!required_var}" ]; then
         echo "Missing required environment variable: $required_var"
@@ -35,27 +38,27 @@ fi
 echo "Effective brsaneconfig4 configuration:"
 /usr/bin/brsaneconfig4 -q
 
-# Start brscan-skey in the background
-/usr/bin/brscan-skey &
+# Start the real long-lived Brother process directly.
+$BRSCAN_CMD &
 SCAN_PID=$!
 
-echo "brscan-skey started with PID: $SCAN_PID"
+echo "$BRSCAN_PROC started with PID: $SCAN_PID"
 
 # Function to restart brscan-skey with a backoff delay
 restart_brscan() {
-    echo "$(date) - brscan-skey-exe stopped! Restarting..."
+    echo "$(date) - $BRSCAN_PROC stopped! Restarting..."
     sleep 5  # Small delay before restart to avoid infinite loops
-    /usr/bin/brscan-skey &
+    $BRSCAN_CMD &
     SCAN_PID=$!
-    echo "$(date) - Restarted brscan-skey with new PID: $SCAN_PID"
+    echo "$(date) - Restarted $BRSCAN_PROC with new PID: $SCAN_PID"
 }
 
 # Monitor Process Loop
 while true; do
     sleep 300  # Check every 5 minutes
 
-    # Check if brscan-skey is still running
-    if ! pgrep -x "brscan-skey" > /dev/null; then
+    # Check if the real Brother listener is still running.
+    if ! pgrep -x "$BRSCAN_PROC" > /dev/null; then
         restart_brscan
     fi
 done
